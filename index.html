@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Sitio de prueba - Pruebas de funcionalidad</title>
+  <meta name="description"
+        content="Sitio de prueba para practicar pruebas de funcionalidad de un sitio publicado.">
+  <style>
+    body{font-family:Arial,sans-serif;margin:0;color:#222;line-height:1.5}
+    header{background:#1f3a5f;color:#fff;padding:16px}
+    header h1{margin:0 0 8px}
+    nav a{color:#fff;margin-right:14px}
+    main{max-width:760px;margin:0 auto;padding:16px}
+    label{display:block;margin-top:10px;font-weight:bold}
+    input,textarea{width:100%;padding:8px;box-sizing:border-box;font-size:16px}
+    button{margin-top:12px;padding:12px 20px;background:#1f3a5f;color:#fff;border:0;
+           cursor:pointer;font-size:16px}
+    .error{color:#b00020}
+    .ok{color:#1b6e2d}
+    @media (max-width:600px){nav a{display:block;margin:8px 0}}
+  </style>
+</head>
+<body>
+  <header>
+    <h1>Sitio de prueba</h1>
+    <nav>
+      <a href="#inicio">Inicio</a>
+      <a href="#contacto">Contacto</a>
+      <a href="https://developer.mozilla.org/" target="_blank" rel="noopener">MDN Web Docs</a>
+    </nav>
+  </header>
+  <main>
+    <section id="inicio">
+      <h2>Bienvenido</h2>
+      <p>Esta p&aacute;gina sirve para practicar las pruebas de funcionalidad
+         de un sitio publicado en Internet.</p>
+      <svg width="120" height="60" role="img" aria-label="Logo de ejemplo">
+        <rect width="120" height="60" fill="#1f3a5f"/>
+        <text x="60" y="36" fill="#fff" font-size="18" text-anchor="middle">TEST</text>
+      </svg>
+    </section>
+    <section id="contacto">
+      <h2>Formulario de contacto</h2>
+      <form id="f" novalidate>
+        <label for="n">Nombre</label>
+        <input id="n" type="text" autocomplete="name">
+        <label for="c">Correo electr&oacute;nico</label>
+        <input id="c" type="email" autocomplete="email">
+        <label for="m">Mensaje</label>
+        <textarea id="m" rows="4"></textarea>
+        <button type="submit">Enviar</button>
+        <p id="r" role="status"></p>
+      </form>
+    </section>
+  </main>
+  <script>
+    document.getElementById('f').addEventListener('submit', function (e) {
+      e.preventDefault();
+      var nombre = document.getElementById('n').value.trim();
+      var correo = document.getElementById('c').value.trim();
+      var mensaje = document.getElementById('m').value.trim();
+      var r = document.getElementById('r');
+      var formatoCorreo = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+      if (!nombre || !correo || !mensaje) {
+        r.className = 'error';
+        r.textContent = 'Todos los campos son obligatorios.';
+      } else if (!formatoCorreo.test(correo)) {
+        r.className = 'error';
+        r.textContent = 'El correo electronico no tiene un formato valido.';
+      } else {
+        r.className = 'ok';
+        r.textContent = 'Mensaje validado correctamente. Gracias, ' + nombre + '.';
+      }
+    });
+  </script>
+</body>
+</html>
